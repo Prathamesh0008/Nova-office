@@ -155,7 +155,7 @@ import React from "react";
 import workspace from "../assets/workspace.jpg"
 import planning from "../assets/planning.jpg"
 import brand from "../assets/brand-promotion.png"
-import video from "../assets/video.webp"
+// import video from "../assets/video.webp"
 import social from "../assets/social.jpg"
 import smm from "../assets/smm.jpg"
 import seo from "../assets/seo.webp"
@@ -178,7 +178,7 @@ const services = [
     title: "Video Marketing",
     desc:
       "A brand for a company is like a reputation for a person. You earn reputation by trying to do hard things well.",
-    img: video,
+    img: "",
   },
   {
     title: "Site Analysis",
