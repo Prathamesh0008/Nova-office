@@ -1,7 +1,7 @@
 // src/pages/ServiceDetail.jsx
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { serviceBySlug, services } from "../data/services.jsx";
+import { serviceBySlug, services } from "../data/Services.jsx";
 
 export default function ServiceDetail() {
   const { slug } = useParams();
