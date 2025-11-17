@@ -1,7 +1,7 @@
 // src/pages/OurServices.jsx
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { services } from "../data/services.jsx";
+import { services } from "../data/Services.jsx";
 
 // Icons per service
 const ICONS = {
