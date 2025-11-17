@@ -33,7 +33,7 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3">
-            <img src={logo} alt="Logo" className="h-9 w-auto object-contain" />
+            <img src={logo} alt="Logo" className="h-25 md:h-24 lg:h-28 w-auto object-contain" />
           </a>
 
           {/* Desktop Navigation */}

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { FiSend } from "react-icons/fi";
 import { FaRegCopyright } from "react-icons/fa6";
@@ -28,12 +27,17 @@ export default function Footer() {
           <div className="grid gap-10 lg:grid-cols-4">
             {/* Col 1 — Logo + description */}
             <div className="space-y-5">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center justify-start">
                 <a href="/" className="inline-flex items-center">
                   <img
                     src={logo}
                     alt="Nova Logo"
-                    className="h-12  object-contain"
+                    className="
+                      block
+                      h-18 md:h-12       /* ✅ fixed, clean height */
+                      w-auto             /* ✅ keep aspect ratio */
+                      object-contain
+                    "
                   />
                 </a>
               </div>
@@ -54,12 +58,36 @@ export default function Footer() {
             <div>
               <h3 className="text-sm font-semibold tracking-wide">BASIC LINKS</h3>
               <ul className="mt-4 grid gap-3 text-white">
-                <li><SmartLink to="/" className="inline-block text-base hover:underline underline-offset-4">Home</SmartLink></li>
-                <li><SmartLink to="/about-us" className="inline-block text-base hover:underline underline-offset-4">About</SmartLink></li>
-                <li><SmartLink to="/services" className="inline-block text-base hover:underline underline-offset-4">Services</SmartLink></li>
-                <li><SmartLink to="/portfolio" className="inline-block text-base hover:underline underline-offset-4">Portfolio</SmartLink></li>
-                <li><SmartLink to="/blogs" className="inline-block text-base hover:underline underline-offset-4">Blog</SmartLink></li>
-                <li><SmartLink to="/contact" className="inline-block text-base hover:underline underline-offset-4">Contact</SmartLink></li>
+                <li>
+                  <SmartLink to="/" className="inline-block text-base hover:underline underline-offset-4">
+                    Home
+                  </SmartLink>
+                </li>
+                <li>
+                  <SmartLink to="/about-us" className="inline-block text-base hover:underline underline-offset-4">
+                    About
+                  </SmartLink>
+                </li>
+                <li>
+                  <SmartLink to="/services" className="inline-block text-base hover:underline underline-offset-4">
+                    Services
+                  </SmartLink>
+                </li>
+                <li>
+                  <SmartLink to="/portfolio" className="inline-block text-base hover:underline underline-offset-4">
+                    Portfolio
+                  </SmartLink>
+                </li>
+                <li>
+                  <SmartLink to="/blogs" className="inline-block text-base hover:underline underline-offset-4">
+                    Blog
+                  </SmartLink>
+                </li>
+                <li>
+                  <SmartLink to="/contact" className="inline-block text-base hover:underline underline-offset-4">
+                    Contact
+                  </SmartLink>
+                </li>
               </ul>
             </div>
 
@@ -68,11 +96,17 @@ export default function Footer() {
               <h3 className="text-sm font-semibold tracking-wide">CONTACT DETAILS</h3>
               <div className="mt-4 grid gap-2 text-white">
                 <div className="text-xs/6 text-white/80">Mobile:</div>
-                <a href="tel:+4484848585" className="text-base hover:underline underline-offset-4">+44 84 84 85 85</a>
-                <a href="tel:+9494848688" className="text-base hover:underline underline-offset-4">+94 94 84 86 88</a>
+                <a href="tel:+4484848585" className="text-base hover:underline underline-offset-4">
+                  +44 84 84 85 85
+                </a>
+                <a href="tel:+9494848688" className="text-base hover:underline underline-offset-4">
+                  +94 94 84 86 88
+                </a>
 
                 <div className="mt-2 text-xs/6 text-white/80">Email:</div>
-                <a href="mailto:domain@support.com" className="text-base hover:underline underline-offset-4">domain@support.com</a>
+                <a href="mailto:domain@support.com" className="text-base hover:underline underline-offset-4">
+                  domain@support.com
+                </a>
 
                 <div className="mt-2 text-xs/6 text-white/80">Address:</div>
                 <a
@@ -122,7 +156,10 @@ export default function Footer() {
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
             {locations.map((city) => (
-              <div key={city} className="inline-flex items-center gap-2 text-sm font-medium">
+              <div
+                key={city}
+                className="inline-flex items-center gap-2 text-sm font-medium"
+              >
                 <FaMapMarkerAlt className="h-4 w-4" />
                 {city}
               </div>

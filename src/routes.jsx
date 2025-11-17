@@ -14,8 +14,8 @@ const ServiceDetail = lazy(() => import("./pages/ServiceDetail.jsx"));
 
 // Optional: services/portfolios later
 const Services = lazy(() => import("./components/OurServices.jsx"));
-const Portfolios = lazy(() => import("./components/Portfolios.jsx"));
-
+const Portfolios = lazy(() => import("./pages/Portfolio.jsx"));
+const PortfolioDetail = lazy(()=> import("./pages/portfolioDeatail.jsx"))
 const NotFound = () => (
   <div className="min-h-[60vh] grid place-items-center p-8 text-center">
     <div>
@@ -39,6 +39,7 @@ export const router = createBrowserRouter([
       { path: "services", element: <Services /> },
       { path: "service/:slug", element: <ServiceDetail /> },
       { path: "portfolios", element: <Portfolios /> },
+      { path: "portfolio/:slug", element: <PortfolioDetail /> },
       { path: "*", element: <NotFound /> },
     ],
   },
