@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./components/RootLayout";
 
-
+import OurServices from "./components/OurServices.jsx"
 
 // Lazy pages (your files already exist)
 const Home    = lazy(() => import("./pages/Home.jsx"));
@@ -10,10 +10,10 @@ const About   = lazy(() => import("./components/About.jsx"));
 const Blog    = lazy(() => import("./components/Blog.jsx"));
 const Contact = lazy(() => import("./components/Contact.jsx"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail.jsx"));
-
+const ServiceDetail = lazy(() => import("./pages/ServiceDetail.jsx"));
 
 // Optional: services/portfolios later
-// const Services = lazy(() => import("./components/Services.jsx"));
+const Services = lazy(() => import("./components/OurServices.jsx"));
 const Portfolios = lazy(() => import("./components/Portfolios.jsx"));
 
 const NotFound = () => (
@@ -36,7 +36,8 @@ export const router = createBrowserRouter([
       { path: "blog", element: <Blog /> },
       { path: "contact", element: <Contact /> },
       { path: "blog/:id", element: <BlogDetail /> },
-      // { path: "services", element: <Services /> },
+      { path: "services", element: <Services /> },
+      { path: "service/:slug", element: <ServiceDetail /> },
       { path: "portfolios", element: <Portfolios /> },
       { path: "*", element: <NotFound /> },
     ],
