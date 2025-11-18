@@ -1,17 +1,18 @@
 import React from "react";
-import web from "../assets/web2.jpg"
-import seo from "../assets/seo.png"
-import wr from "../assets/dm1.jpg"
-import t1 from "../assets/t1.avif"
-import dmt from "../assets/dmt.png"
+import web from "../assets/web2.jpg";
+import seo from "../assets/seo.png";
+import wr from "../assets/dm1.jpg";
+import t1 from "../assets/t1.avif";
+import dmt from "../assets/dmt.png";
 import StatsStrip from "../components/StatsStrip";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#314977] to-[#3386BC] text-white">
       {/* === Hero Section === */}
       <section className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-6 py-32 md:py-44">
         <div className="md:w-1/2 space-y-8">
-          <h1 className="text-5xl md:text-6xl  leading-tight tracking-tight drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl leading-tight tracking-tight drop-shadow-lg">
             Build, Rank & Scale with Nova Digital
           </h1>
           <p className="text-xl text-gray-100/90 leading-relaxed">
@@ -30,6 +31,7 @@ export default function Home() {
           <img
             src={dmt}
             alt="Digital Marketing Team"
+            decoding="async"
             className="rounded-3xl shadow-2xl border-4 border-white/20"
           />
         </div>
@@ -44,10 +46,13 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {/* SEO */}
-            <div className="bg-gradient-to-b from-[#314977]/10 to-[#3386BC]/10 rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-transform hover:-translate-y-2">
+            <div className="bg-gradient-to-b from-[#314977]/10 to-[#3386BC]/10 rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-transform hover:-translate-y-2 cursor-pointer">
               <img
                 src={seo}
-                className="rounded-lg mb-6 rounded-lg mb-6  object-cover shrink-0"
+                alt="SEO Service"
+                loading="lazy"
+                decoding="async"
+                className="rounded-lg mb-6 object-cover shrink-0"
               />
               <h3 className="text-2xl font-semibold mb-3 text-[#314977]">
                 Search Engine Optimization (SEO)
@@ -60,10 +65,12 @@ export default function Home() {
             </div>
 
             {/* Web Development */}
-            <div className="bg-gradient-to-b from-[#314977]/10 to-[#3386BC]/10 rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-transform hover:-translate-y-2">
+            <div className="bg-gradient-to-b from-[#314977]/10 to-[#3386BC]/10 rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-transform hover:-translate-y-2 cursor-pointer">
               <img
                 src={web}
                 alt="Web Development"
+                loading="lazy"
+                decoding="async"
                 className="rounded-lg mb-6"
               />
               <h3 className="text-2xl font-semibold mb-3 text-[#314977]">
@@ -75,12 +82,14 @@ export default function Home() {
                 customers.
               </p>
             </div>
-{/* https://api.deepai.org/job-view-file/6f3d113e-bdfe-4ef8-b8f9-99257742b990/outputs/output.jpg */}
+
             {/* Digital Marketing */}
-            <div className="bg-gradient-to-b from-[#314977]/10 to-[#3386BC]/10 rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-transform hover:-translate-y-2">
+            <div className="bg-gradient-to-b from-[#314977]/10 to-[#3386BC]/10 rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-transform hover:-translate-y-2 cursor-pointer">
               <img
                 src={wr}
                 alt="Digital Marketing"
+                loading="lazy"
+                decoding="async"
                 className="rounded-lg mb-6"
               />
               <h3 className="text-2xl font-semibold mb-3 text-[#314977]">
@@ -154,7 +163,8 @@ export default function Home() {
           Contact Us
         </a>
       </section>
-      <StatsStrip></StatsStrip>
+
+      <StatsStrip />
     </div>
   );
 }

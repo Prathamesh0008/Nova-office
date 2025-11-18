@@ -3,7 +3,7 @@ import { FiSend } from "react-icons/fi";
 import { FaRegCopyright } from "react-icons/fa6";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link, useInRouterContext } from "react-router-dom";
-import logo from "../assets/White logo.png"; // ✅ correct import from assets
+import logo from "../assets/White logo copy.png"; // ✅ correct import from assets
 
 // SmartLink: works with or without BrowserRouter
 function SmartLink({ to, children, ...props }) {
@@ -11,7 +11,11 @@ function SmartLink({ to, children, ...props }) {
     typeof useInRouterContext === "function" ? useInRouterContext() : false;
   const isExternal = /^https?:\/\//i.test(to);
   if (!inRouter || isExternal) return <a href={to} {...props}>{children}</a>;
-  return <Link to={to} {...props}>{children}</Link>;
+  return (
+    <Link to={to} {...props}>
+      {children}
+    </Link>
+  );
 }
 
 export default function Footer() {
@@ -21,12 +25,14 @@ export default function Footer() {
     <footer className="text-white">
       {/* Main footer */}
       <div className="bg-gradient-to-r from-[#314977] to-[#3386BC]">
+        {/* top hairline */}
         <div className="h-1 w-full bg-white/20" />
 
         <div className="mx-auto max-w-7xl px-6 py-12">
-          <div className="grid gap-10 lg:grid-cols-4">
+          {/* 12-column grid for better control */}
+          <div className="grid gap-8 lg:gap-6 xl:gap-8 lg:grid-cols-12 items-start">
             {/* Col 1 — Logo + description */}
-            <div className="space-y-5">
+            <div className="space-y-6 lg:col-span-4">
               <div className="flex items-center justify-start">
                 <a href="/" className="inline-flex items-center">
                   <img
@@ -34,14 +40,14 @@ export default function Footer() {
                     alt="Nova Logo"
                     className="
                       block
-                      h-18 md:h-12       /* ✅ fixed, clean height */
-                      w-auto             /* ✅ keep aspect ratio */
+                      h-10 md:h-12 lg:h-35 lg:mt-[-20px]  /* 🔥 bigger + responsive */
+                      w-auto
                       object-contain
                     "
                   />
                 </a>
               </div>
-              <div className="text-sm/6 text-white/90 space-y-2">
+              <div className="text-sm leading-6 text-white/90 space-y-2 max-w-md lg:mt-[-15px]">
                 <p>
                   Because advertising and marketing is an art, each new
                   problem or challenge should begin with a blank canvas and
@@ -55,79 +61,100 @@ export default function Footer() {
             </div>
 
             {/* Col 2 — BASIC LINKS */}
-            <div>
-              <h3 className="text-sm font-semibold tracking-wide">BASIC LINKS</h3>
-              <ul className="mt-4 grid gap-3 text-white">
+            <div className="lg:col-span-3 lg:ml-15">
+              <h3 className="text-sm font-semibold tracking-wide">
+                BASIC LINKS
+              </h3>
+              <ul className="mt-4 grid gap-2.5 text-white">
                 <li>
-                  <SmartLink to="/" className="inline-block text-base hover:underline underline-offset-4">
+                  <SmartLink
+                    to="/"
+                    className="inline-block text-base hover:underline underline-offset-4"
+                  >
                     Home
                   </SmartLink>
                 </li>
                 <li>
-                  <SmartLink to="/about-us" className="inline-block text-base hover:underline underline-offset-4">
+                  <SmartLink
+                    to="/about-us"
+                    className="inline-block text-base hover:underline underline-offset-4"
+                  >
                     About
                   </SmartLink>
                 </li>
                 <li>
-                  <SmartLink to="/services" className="inline-block text-base hover:underline underline-offset-4">
+                  <SmartLink
+                    to="/services"
+                    className="inline-block text-base hover:underline underline-offset-4"
+                  >
                     Services
                   </SmartLink>
                 </li>
                 <li>
-                  <SmartLink to="/portfolio" className="inline-block text-base hover:underline underline-offset-4">
+                  <SmartLink
+                    to="/portfolio"
+                    className="inline-block text-base hover:underline underline-offset-4"
+                  >
                     Portfolio
                   </SmartLink>
                 </li>
                 <li>
-                  <SmartLink to="/blogs" className="inline-block text-base hover:underline underline-offset-4">
+                  <SmartLink
+                    to="/blog"
+                    className="inline-block text-base hover:underline underline-offset-4"
+                  >
                     Blog
                   </SmartLink>
                 </li>
                 <li>
-                  <SmartLink to="/contact" className="inline-block text-base hover:underline underline-offset-4">
+                  <SmartLink
+                    to="/contact"
+                    className="inline-block text-base hover:underline underline-offset-4"
+                  >
                     Contact
                   </SmartLink>
                 </li>
               </ul>
             </div>
 
-            {/* Col 3 — CONTACT DETAILS */}
-            <div>
-              <h3 className="text-sm font-semibold tracking-wide">CONTACT DETAILS</h3>
-              <div className="mt-4 grid gap-2 text-white">
-                <div className="text-xs/6 text-white/80">Mobile:</div>
-                <a href="tel:+4484848585" className="text-base hover:underline underline-offset-4">
-                  +44 84 84 85 85
-                </a>
-                <a href="tel:+9494848688" className="text-base hover:underline underline-offset-4">
-                  +94 94 84 86 88
-                </a>
+            {/* Col 3 — CONTACT */}
+            <div className="lg:col-span-2 lg:ml-[-50px]">
+              <h3 className="text-sm font-semibold tracking-wide">CONTACT</h3>
 
-                <div className="mt-2 text-xs/6 text-white/80">Email:</div>
-                <a href="mailto:domain@support.com" className="text-base hover:underline underline-offset-4">
-                  domain@support.com
-                </a>
+              <p className="mt-4 text-sm text-white/90">
+                Have a project in mind? Let&apos;s build something extraordinary
+                together.
+              </p>
 
-                <div className="mt-2 text-xs/6 text-white/80">Address:</div>
-                <a
-                  href="https://maps.google.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-base hover:underline underline-offset-4"
-                >
-                  10/2, Middle Street, New York
-                </a>
-              </div>
+              <SmartLink
+                to="/contact"
+                className="
+                  mt-6 inline-flex items-center justify-center
+                  rounded-lg bg-white text-[#314977] font-semibold
+                  px-6 py-3 shadow-md
+                  hover:bg-white/90 hover:-translate-y-0.5
+                  transition-transform transition-colors
+                  w-full sm:w-auto
+                  text-sm md:text-base
+                "
+              >
+                Contact Us
+              </SmartLink>
             </div>
 
             {/* Col 4 — NEWSLETTER */}
-            <div>
-              <h3 className="text-sm font-semibold tracking-wide">NEWSLETTER</h3>
+            <div className="lg:col-span-3">
+              <h3 className="text-sm font-semibold tracking-wide">
+                NEWSLETTER
+              </h3>
               <p className="mt-4 text-sm text-white/90">
                 A newsletter is a printed report containing news and updates
                 about the activities of your business.
               </p>
-              <form onSubmit={(e) => e.preventDefault()} className="mt-4 flex gap-2">
+              <form
+                onSubmit={(e) => e.preventDefault()}
+                className="mt-4 flex gap-2"
+              >
                 <label htmlFor="newsletter-email" className="sr-only">
                   Your Email Address
                 </label>

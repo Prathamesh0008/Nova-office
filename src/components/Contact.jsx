@@ -35,11 +35,11 @@ export default function Contact() {
           {/* Left: contact info boxes (content from ContactUs.js) */}
           <aside className="space-y-6">
             {/* Phone */}
-            <div className="rounded-2xl bg-white/10 p-6 text-white ring-1 ring-white/15 backdrop-blur">
+            {/* <div className="rounded-2xl bg-white/10 p-6 text-white ring-1 ring-white/15 backdrop-blur">
               <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/20">
+                <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/20"> */}
                   {/* phone icon */}
-                  <svg
+                  {/* <svg
                     className="h-5 w-5"
                     viewBox="0 0 24 24"
                     fill="currentColor"
@@ -56,7 +56,7 @@ export default function Contact() {
               >
                 +8801760-00000
               </a>
-            </div>
+            </div> */}
 
             {/* Email */}
             <div className="rounded-2xl bg-white/10 p-6 text-white ring-1 ring-white/15 backdrop-blur">
@@ -230,7 +230,7 @@ export default function Contact() {
         </div>
 
         {/* Map (from ContactUs.js) */}
-        <div className="mt-12 overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 bg-white">
+        {/* <div className="mt-12 overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 bg-white">
           <iframe
             title="Google Map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.7074960125717!2d-74.0060150845937!3d40.71277577933002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316d21c451%3A0x1a68d6760c4db07f!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1616161616161!5m2!1sen!2sus"
@@ -240,7 +240,7 @@ export default function Contact() {
             allowFullScreen
             loading="lazy"
           ></iframe>
-        </div>
+        </div> */}
       </div>
     </div>
   );
