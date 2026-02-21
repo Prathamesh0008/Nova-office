@@ -1,20 +1,73 @@
-
 import React, { useState } from "react";
+
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "contact@address.com";
+const DEFAULT_CONTACT_ENDPOINT = "/.netlify/functions/contact";
+const USER_DEFINED_CONTACT_ENDPOINT =
+  import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim() || "";
+const CONTACT_FORM_ENDPOINT =
+  USER_DEFINED_CONTACT_ENDPOINT || DEFAULT_CONTACT_ENDPOINT;
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e) {
     e.preventDefault();
+    setSent(false);
+    setErrorMessage("");
     setLoading(true);
 
-    // TODO: hook to EmailJS / Formspree / API route
-    await new Promise((r) => setTimeout(r, 900));
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
 
-    setLoading(false);
-    setSent(true);
-    e.currentTarget.reset();
+    try {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        let message = "Submit endpoint returned an error.";
+
+        if (
+          import.meta.env.DEV &&
+          response.status === 404 &&
+          CONTACT_FORM_ENDPOINT.startsWith("/.netlify/functions/")
+        ) {
+          message =
+            "Contact function not found in local Vite dev. Start with `npm run dev:netlify`.";
+        }
+
+        try {
+          const data = await response.json();
+          if (typeof data?.message === "string" && data.message.trim()) {
+            message = data.message.trim();
+          }
+        } catch {
+          // Keep fallback message when response is not JSON.
+        }
+
+        throw new Error(message);
+      }
+
+      setSent(true);
+      setSuccessMessage("Thank you! Your message has been sent.");
+      form.reset();
+    } catch (error) {
+      setErrorMessage(
+        error?.message ||
+          "We could not send your message. Please try again or email us directly."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -27,7 +80,7 @@ export default function Contact() {
           </h1>
           <p className="mt-3 max-w-2xl text-white/90">
             There's design, and there's art. Good design is total harmony.
-            There's no designer like nature – just look at a branch or a leaf.
+            There's no designer like nature - just look at a branch or a leaf.
           </p>
         </header>
 
@@ -38,8 +91,8 @@ export default function Contact() {
             {/* <div className="rounded-2xl bg-white/10 p-6 text-white ring-1 ring-white/15 backdrop-blur">
               <div className="flex items-center gap-3">
                 <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/20"> */}
-                  {/* phone icon */}
-                  {/* <svg
+            {/* phone icon */}
+            {/* <svg
                     className="h-5 w-5"
                     viewBox="0 0 24 24"
                     fill="currentColor"
@@ -75,10 +128,10 @@ export default function Contact() {
                 <h3 className="text-lg font-semibold">Email</h3>
               </div>
               <a
-                href="mailto:contact@address.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="mt-3 inline-block font-medium underline underline-offset-4"
               >
-                contact@address.com
+                {CONTACT_EMAIL}
               </a>
             </div>
 
@@ -119,12 +172,17 @@ export default function Contact() {
                 Send Message
               </h2>
               <p className="mt-1 text-slate-600">
-                Fill out the form and we’ll get back within 1–2 business days.
+                Fill out the form and we'll get back within 1-2 business days.
               </p>
 
               {sent && (
                 <div className="mt-4 rounded-lg bg-green-50 p-3 text-green-700 ring-1 ring-green-200">
-                  Thank you! Your message has been sent.
+                  {successMessage}
+                </div>
+              )}
+              {errorMessage && (
+                <div className="mt-4 rounded-lg bg-red-50 p-3 text-red-700 ring-1 ring-red-200">
+                  {errorMessage}
                 </div>
               )}
 
@@ -219,10 +277,10 @@ export default function Contact() {
                   {loading ? "Sending..." : "Send Message"}
                 </button>
                 <a
-                  href="mailto:contact@address.com"
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="text-sm font-medium text-[#314977] underline underline-offset-4"
                 >
-                  or email contact@address.com
+                  or email {CONTACT_EMAIL}
                 </a>
               </div>
             </form>
