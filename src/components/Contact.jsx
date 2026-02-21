@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 
 const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "contact@address.com";
-const DEFAULT_CONTACT_ENDPOINT = "/.netlify/functions/contact";
+const DEFAULT_CONTACT_ENDPOINT = "/api/contact";
 const USER_DEFINED_CONTACT_ENDPOINT =
   import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim() || "";
+const NORMALIZED_CONTACT_ENDPOINT =
+  USER_DEFINED_CONTACT_ENDPOINT === "/.netlify/functions/contact"
+    ? DEFAULT_CONTACT_ENDPOINT
+    : USER_DEFINED_CONTACT_ENDPOINT;
 const CONTACT_FORM_ENDPOINT =
-  USER_DEFINED_CONTACT_ENDPOINT || DEFAULT_CONTACT_ENDPOINT;
+  NORMALIZED_CONTACT_ENDPOINT || DEFAULT_CONTACT_ENDPOINT;
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -39,10 +43,10 @@ export default function Contact() {
         if (
           import.meta.env.DEV &&
           response.status === 404 &&
-          CONTACT_FORM_ENDPOINT.startsWith("/.netlify/functions/")
+          CONTACT_FORM_ENDPOINT.startsWith("/api/")
         ) {
           message =
-            "Contact function not found in local Vite dev. Start with `npm run dev:netlify`.";
+            "Contact API not found. Restart with `npm run dev` and check server logs.";
         }
 
         try {
