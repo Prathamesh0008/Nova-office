@@ -1,7 +1,7 @@
 // src/pages/OurServices.jsx
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { services } from "../data/services.jsx";
+import { services } from "../data/Services.jsx";
 
 import brandImg from "../assets/B_S.jpg";
 import webImg from "../assets/SEO1.jpg";

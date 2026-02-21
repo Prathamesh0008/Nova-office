@@ -1,7 +1,7 @@
 // src/pages/ServiceDetail.jsx
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { serviceBySlug, services } from "../data/services.jsx"; // ✅ lowercase
+import { serviceBySlug, services } from "../data/Services.jsx"; // ✅ lowercase
 export default function ServiceDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -266,3 +266,4 @@ export default function ServiceDetail() {
     </main>
   );
 }
+
