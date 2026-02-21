@@ -60,25 +60,42 @@ const buildTransport = (config) => {
   });
 };
 
-const json = (res, status, payload) => {
-  res.status(status).setHeader("Content-Type", "application/json");
-  res.send(JSON.stringify(payload));
+const json = (res, statusCode, payload) => {
+  res.statusCode = statusCode;
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(payload));
 };
 
-const parsePayload = (reqBody) => {
-  if (!reqBody) return {};
-  if (typeof reqBody === "string") {
-    try {
-      return JSON.parse(reqBody);
-    } catch {
-      return null;
-    }
+const readJsonBody = async (req) => {
+  if (req.body && typeof req.body === "object") {
+    return req.body;
   }
-  if (typeof reqBody === "object") return reqBody;
-  return null;
+
+  if (typeof req.body === "string") {
+    return JSON.parse(req.body);
+  }
+
+  const chunks = [];
+  for await (const chunk of req) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  }
+
+  const body = Buffer.concat(chunks).toString("utf8");
+  if (!body) return {};
+  return JSON.parse(body);
 };
 
 export default async function handler(req, res) {
+  if (req.method === "OPTIONS") {
+    return json(res, 204, {});
+  }
+
+  if (req.method === "GET") {
+    return json(res, 200, {
+      message: "Contact API is running. Use POST to submit messages.",
+    });
+  }
+
   if (req.method !== "POST") {
     return json(res, 405, { message: "Method not allowed." });
   }
@@ -96,8 +113,10 @@ export default async function handler(req, res) {
     });
   }
 
-  const payload = parsePayload(req.body);
-  if (payload == null) {
+  let payload;
+  try {
+    payload = await readJsonBody(req);
+  } catch {
     return json(res, 400, { message: "Invalid JSON payload." });
   }
 
