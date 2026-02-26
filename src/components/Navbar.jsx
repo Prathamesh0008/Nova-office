@@ -1,10 +1,15 @@
 //src\components\Navbar.jsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/White logo.png";
 
 export default function Navbar({ logoSrc = "/logo.png" }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const closeMobileMenus = () => {
+    setMobileOpen(false);
+    setMobileServicesOpen(false);
+  };
 
   const navItems = [
     { label: "HOME", href: "/" },
@@ -32,9 +37,9 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
           
           {/* === LOGO === */}
-         <a href="/" className="flex items-center gap-3">
+         <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="Logo" className="h-30 md:h-30 lg:h-28 w-auto object-contain" />
-          </a>
+          </Link>
 
           {/* === DESKTOP NAV === */}
           <nav className="hidden lg:flex items-center gap-8">
@@ -43,8 +48,8 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                 <div key={item.label} className="relative group">
                   
                   {/* Main link */}
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="text-sm font-semibold tracking-wide flex items-center gap-1 hover:text-[#FFB347] transition"
                   >
                     {item.label}
@@ -54,7 +59,7 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                       <path strokeLinecap="round" strokeLinejoin="round"
                         d="M19 9l-7 7-7-7" />
                     </svg>
-                  </a>
+                  </Link>
 
                   {/* === GRADIENT DROPDOWN === */}
                   <div
@@ -68,9 +73,9 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                   >
                     <div className="py-2">
                       {item.children.map((child) => (
-                        <a
+                        <Link
                           key={child.label}
-                          href={child.href}
+                          to={child.href}
                           className="
                             block px-4 py-2.5 text-sm font-semibold
                             text-white
@@ -80,31 +85,31 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                           "
                         >
                           {child.label}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
                 </div>
               ) : (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
+                  to={item.href}
                   className="text-sm font-semibold hover:text-[#FFB347] transition"
                 >
                   {item.label}
-                </a>
+                </Link>
               )
             )}
           </nav>
 
           {/* === CTA + MOBILE MENU TOGGLE === */}
           <div className="flex items-center gap-4">
-            <a
-              href="/get-started"
+            <Link
+              to="/get-started"
               className="hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#314977] hover:bg-[#26385E] transition"
             >
               Get Started
-            </a>
+            </Link>
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -136,9 +141,9 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                 item.hasDropdown ? (
                   <div key={item.label}>
                     <div className="flex justify-between items-center w-full px-3 py-2">
-                      <a href={item.href} className="text-sm font-semibold">
+                      <Link to={item.href} className="text-sm font-semibold" onClick={closeMobileMenus}>
                         {item.label}
-                      </a>
+                      </Link>
 
                       {/* Mobile dropdown toggle */}
                       <button
@@ -159,54 +164,58 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                     {/* Mobile dropdown */}
                     {mobileServicesOpen && (
                       <div className="mt-1 rounded-lg bg-gradient-to-r from-[#314977]/80 to-[#3386BC]/80">
-                        <a
-                          href={item.href}
+                        <Link
+                          to={item.href}
+                          onClick={closeMobileMenus}
                           className="
                             block px-5 py-2 text-sm font-semibold text-white
                             hover:bg-[#FFB347]/20
                           "
                         >
                           All Services
-                        </a>
+                        </Link>
 
                         {item.children.map((child) => (
-                          <a
+                          <Link
                             key={child.label}
-                            href={child.href}
+                            to={child.href}
+                            onClick={closeMobileMenus}
                             className="
                               block px-5 py-2 text-sm text-white
                               hover:bg-[#FFB347]/20
                             "
                           >
                             {child.label}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     )}
                   </div>
                 ) : (
-                  <a
+                  <Link
                     key={item.label}
-                    href={item.href}
+                    to={item.href}
+                    onClick={closeMobileMenus}
                     className="
                       block px-3 py-2 text-sm font-semibold
                       hover:bg-[#FFB347]/20
                     "
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 )
               )}
 
-              <a
-                href="/get-started"
+              <Link
+                to="/get-started"
+                onClick={closeMobileMenus}
                 className="
                   block mt-2 text-center bg-[#314977] px-4 py-2
                   rounded-lg font-semibold hover:bg-[#26385E] transition
                 "
               >
                 Get Started
-              </a>
+              </Link>
             </div>
           </div>
         )}
