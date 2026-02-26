@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "contact@address.com";
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "novatechscience@gmail.com";
 const DEFAULT_CONTACT_ENDPOINT = "/api/contact";
 const USER_DEFINED_CONTACT_ENDPOINT =
   import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim() || "";
@@ -140,30 +140,7 @@ export default function Contact() {
             </div>
 
             {/* Address */}
-            <div className="rounded-2xl bg-white/10 p-6 text-white ring-1 ring-white/15 backdrop-blur">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/20">
-                  {/* map pin icon */}
-                  <svg
-                    className="h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold">Address</h3>
-              </div>
-              <a
-                href="https://maps.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-block font-medium underline underline-offset-4"
-              >
-                New Street, Babinham, NY
-              </a>
-            </div>
+          
           </aside>
 
           {/* Right: form (fields & placeholders from ContactUs.js) */}
