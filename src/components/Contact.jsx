@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "novatechscience@gmail.com";
-const DEFAULT_CONTACT_ENDPOINT = "/api/contact";
-const USER_DEFINED_CONTACT_ENDPOINT =
-  import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim() || "";
-const NORMALIZED_CONTACT_ENDPOINT =
-  USER_DEFINED_CONTACT_ENDPOINT === "/.netlify/functions/contact"
-    ? DEFAULT_CONTACT_ENDPOINT
-    : USER_DEFINED_CONTACT_ENDPOINT;
-const CONTACT_FORM_ENDPOINT =
-  NORMALIZED_CONTACT_ENDPOINT || DEFAULT_CONTACT_ENDPOINT;
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim() || "";
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID?.trim() || "";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.trim() || "";
+const EMAILJS_AUTOREPLY_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID?.trim() || "";
+const EMAILJS_AUTOREPLY_SERVICE_ID =
+  import.meta.env.VITE_EMAILJS_AUTOREPLY_SERVICE_ID?.trim() || EMAILJS_SERVICE_ID;
+const PHONE_ALLOWED_CHARS_REGEX = /^\+?[0-9\s\-()]+$/;
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -26,43 +26,74 @@ export default function Contact() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
+    const name = String(payload.name || "").trim();
+    const email = String(payload.email || "").trim();
+    const phone = String(payload.phone || "").trim();
+    const website = String(payload.website || "").trim();
+    const message = String(payload.message || "").trim();
 
     try {
-      const response = await fetch(CONTACT_FORM_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const phoneDigits = phone.replace(/\D/g, "");
+      const isPhoneFormatValid =
+        PHONE_ALLOWED_CHARS_REGEX.test(phone) &&
+        phoneDigits.length >= 10 &&
+        phoneDigits.length <= 15;
+
+      if (!isPhoneFormatValid) {
+        throw new Error(
+          "Please enter a valid contact number (10-15 digits, numbers with optional +, space, -, or parentheses)."
+        );
+      }
+
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        throw new Error(
+          "Email service is not configured. Set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY."
+        );
+      }
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: name,
+          from_email: email,
+          phone,
+          website,
+          message,
+          email: CONTACT_EMAIL,
+          to_email: CONTACT_EMAIL,
         },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        let message = "Submit endpoint returned an error.";
-
-        if (
-          import.meta.env.DEV &&
-          response.status === 404 &&
-          CONTACT_FORM_ENDPOINT.startsWith("/api/")
-        ) {
-          message =
-            "Contact API not found. Restart with `npm run dev` and check server logs.";
+        {
+          publicKey: EMAILJS_PUBLIC_KEY,
         }
+      );
 
-        try {
-          const data = await response.json();
-          if (typeof data?.message === "string" && data.message.trim()) {
-            message = data.message.trim();
+      if (EMAILJS_AUTOREPLY_TEMPLATE_ID) {
+        await emailjs.send(
+          EMAILJS_AUTOREPLY_SERVICE_ID,
+          EMAILJS_AUTOREPLY_TEMPLATE_ID,
+          {
+            to_name: name,
+            email,
+            to_email: email,
+            phone,
+            website,
+            submitted_message: message,
+            company_email: CONTACT_EMAIL,
+            company_name: "Nova Techscience",
+          },
+          {
+            publicKey: EMAILJS_PUBLIC_KEY,
           }
-        } catch {
-          // Keep fallback message when response is not JSON.
-        }
-
-        throw new Error(message);
+        );
       }
 
       setSent(true);
-      setSuccessMessage("Thank you! Your message has been sent.");
+      setSuccessMessage(
+        EMAILJS_AUTOREPLY_TEMPLATE_ID
+          ? "Thank you! Your message has been sent. We have also emailed a confirmation to you."
+          : "Thank you! Your message has been sent."
+      );
       form.reset();
     } catch (error) {
       setErrorMessage(
@@ -227,6 +258,12 @@ export default function Contact() {
                     name="phone"
                     type="tel"
                     placeholder="Enter your phone number"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    pattern="^\+?[0-9\s\-()]+$"
+                    minLength={10}
+                    maxLength={20}
+                    title="Enter a valid phone number using 10-15 digits (you can include +, spaces, dashes, or parentheses)."
                     required
                     className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-[#3386BC] focus:outline-none focus:ring-2 focus:ring-[#3386BC]/30"
                   />
