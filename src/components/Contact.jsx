@@ -10,6 +10,7 @@ const EMAILJS_AUTOREPLY_TEMPLATE_ID =
 const EMAILJS_AUTOREPLY_SERVICE_ID =
   import.meta.env.VITE_EMAILJS_AUTOREPLY_SERVICE_ID?.trim() || EMAILJS_SERVICE_ID;
 const PHONE_ALLOWED_CHARS_REGEX = /^\+?[0-9\s\-()]+$/;
+const COMPANY_NAME = "Nova Techscience";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -51,36 +52,55 @@ export default function Contact() {
         );
       }
 
+      const normalizedSubmitterEmail = email.toLowerCase();
+      const normalizedContactEmail = CONTACT_EMAIL.toLowerCase();
+      const shouldSendAutoReply =
+        Boolean(EMAILJS_AUTOREPLY_TEMPLATE_ID) &&
+        normalizedSubmitterEmail !== normalizedContactEmail;
+
+      const sharedTemplateParams = {
+        name,
+        user_name: name,
+        from_name: name,
+        to_name: name,
+        email,
+        user_email: email,
+        from_email: email,
+        reply_to: email,
+        phone,
+        website,
+        message,
+        submitted_message: message,
+      };
+
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          from_name: name,
-          from_email: email,
-          phone,
-          website,
-          message,
-          email: CONTACT_EMAIL,
+          ...sharedTemplateParams,
           to_email: CONTACT_EMAIL,
+          contact_email: CONTACT_EMAIL,
+          admin_email: CONTACT_EMAIL,
+          company_email: CONTACT_EMAIL,
+          company_name: COMPANY_NAME,
         },
         {
           publicKey: EMAILJS_PUBLIC_KEY,
         }
       );
 
-      if (EMAILJS_AUTOREPLY_TEMPLATE_ID) {
+      if (shouldSendAutoReply) {
         await emailjs.send(
           EMAILJS_AUTOREPLY_SERVICE_ID,
           EMAILJS_AUTOREPLY_TEMPLATE_ID,
           {
-            to_name: name,
-            email,
+            ...sharedTemplateParams,
             to_email: email,
-            phone,
-            website,
-            submitted_message: message,
+            from_name: COMPANY_NAME,
+            from_email: CONTACT_EMAIL,
+            reply_to: CONTACT_EMAIL,
             company_email: CONTACT_EMAIL,
-            company_name: "Nova Techscience",
+            company_name: COMPANY_NAME,
           },
           {
             publicKey: EMAILJS_PUBLIC_KEY,
@@ -90,7 +110,7 @@ export default function Contact() {
 
       setSent(true);
       setSuccessMessage(
-        EMAILJS_AUTOREPLY_TEMPLATE_ID
+        shouldSendAutoReply
           ? "Thank you! Your message has been sent. We have also emailed a confirmation to you."
           : "Thank you! Your message has been sent."
       );
