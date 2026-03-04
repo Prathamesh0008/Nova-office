@@ -12,6 +12,11 @@ const EMAILJS_AUTOREPLY_SERVICE_ID =
 const PHONE_ALLOWED_CHARS_REGEX = /^\+?[0-9\s\-()]+$/;
 const COMPANY_NAME = "Nova Techscience";
 
+// Address components
+const ADDRESS_LINE1 = "Office no-2, 1st Floor, Sector-4, Palm Beach Rd";
+const ADDRESS_LINE2 = "near PALM BEACH RESIDENCY, Nerul West";
+const ADDRESS_CITY = "Maharashtra 400706 Nerul";
+
 export default function Contact() {
   const [sent, setSent] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -126,53 +131,27 @@ export default function Contact() {
   }
 
   return (
-    <div className="min-h-dvh bg-gradient-to-r from-[#314977] to-[#3386BC]">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        {/* Header (content from ContactUs.js) */}
-        <header className="text-white">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Send Us A Message Now
+    <div className="min-h-screen bg-gradient-to-r from-[#314977] to-[#3386BC]">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        {/* Header - Reduced spacing */}
+        <header className="text-center lg:text-left mb-6">
+          <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            Send Us A Message
           </h1>
-          <p className="mt-3 max-w-2xl text-white/90">
+          <p className="mt-2 max-w-2xl text-sm text-white/80 mx-auto lg:mx-0">
             There's design, and there's art. Good design is total harmony.
-            There's no designer like nature - just look at a branch or a leaf.
           </p>
         </header>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-3">
-          {/* Left: contact info boxes (content from ContactUs.js) */}
-          <aside className="space-y-6">
-            {/* Phone */}
-            {/* <div className="rounded-2xl bg-white/10 p-6 text-white ring-1 ring-white/15 backdrop-blur">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/20"> */}
-            {/* phone icon */}
-            {/* <svg
-                    className="h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l1.82-1.82a1 1 0 011.02-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V21a1 1 0 01-1 1C11.4 22 2 12.6 2 1a1 1 0 011-1h3.11a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.02l-1.82 1.82z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold">Call Us</h3>
-              </div>
-              <a
-                href="tel:+880176000000"
-                className="mt-3 inline-block font-medium underline underline-offset-4"
-              >
-                +8801760-00000
-              </a>
-            </div> */}
-
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Left: contact info - More compact */}
+          <aside className="space-y-4">
             {/* Email */}
-            <div className="rounded-2xl bg-white/10 p-6 text-white ring-1 ring-white/15 backdrop-blur">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/20">
-                  {/* envelope icon */}
+            <div className="rounded-xl bg-white/10 p-4 text-white ring-1 ring-white/15 backdrop-blur">
+              <div className="flex items-center gap-2">
+                <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/20">
                   <svg
-                    className="h-5 w-5"
+                    className="h-4 w-4"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"
@@ -180,163 +159,172 @@ export default function Contact() {
                     <path d="M20 4H4a2 2 0 00-2 2v.4l10 6.25L22 6.4V6a2 2 0 00-2-2zm0 4.15l-8 5-8-5V18a2 2 0 002 2h12a2 2 0 002-2V8.15z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold">Email</h3>
+                <h3 className="text-base font-semibold">Email</h3>
               </div>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="mt-3 inline-block font-medium underline underline-offset-4"
+                className="mt-2 inline-block text-sm font-medium underline underline-offset-4 break-all"
               >
                 {CONTACT_EMAIL}
               </a>
             </div>
 
-            {/* Address */}
-          
+            {/* Address - More compact */}
+            <div className="rounded-xl bg-white/10 p-4 text-white ring-1 ring-white/15 backdrop-blur">
+              <div className="flex items-center gap-2">
+                <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/20">
+                  <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                  </svg>
+                </div>
+                <h3 className="text-base font-semibold">Office</h3>
+              </div>
+              <address className="mt-2 not-italic text-sm">
+                <p>{ADDRESS_LINE1}</p>
+                <p>{ADDRESS_LINE2}</p>
+                <p>{ADDRESS_CITY}</p>
+                <a
+                  href="https://maps.google.com/?q=Office+no-2+1st+Floor+Sector-4+Palm+Beach+Rd+Nerul+West+Maharashtra+400706"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block text-xs underline underline-offset-4 hover:text-white/80"
+                >
+                  View on Maps →
+                </a>
+              </address>
+            </div>
           </aside>
 
-          {/* Right: form (fields & placeholders from ContactUs.js) */}
+          {/* Right: form - More compact */}
           <section className="lg:col-span-2">
             <form
               onSubmit={onSubmit}
-              className="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-black/5"
+              className="rounded-xl bg-white p-5 shadow-lg ring-1 ring-black/5"
             >
-              <h2 className="text-2xl font-bold text-[#314977]">
-                Send Message
-              </h2>
-              <p className="mt-1 text-slate-600">
-                Fill out the form and we'll get back within 1-2 business days.
+              <h2 className="text-xl font-bold text-[#314977]">Send Message</h2>
+              <p className="mt-0.5 text-xs text-slate-600">
+                We'll get back within 1-2 business days.
               </p>
 
-              {sent && (
-                <div className="mt-4 rounded-lg bg-green-50 p-3 text-green-700 ring-1 ring-green-200">
-                  {successMessage}
-                </div>
-              )}
-              {errorMessage && (
-                <div className="mt-4 rounded-lg bg-red-50 p-3 text-red-700 ring-1 ring-red-200">
-                  {errorMessage}
+              {(sent || errorMessage) && (
+                <div className={`mt-3 rounded-lg p-2 text-sm ${
+                  sent 
+                    ? "bg-green-50 text-green-700 ring-1 ring-green-200" 
+                    : "bg-red-50 text-red-700 ring-1 ring-red-200"
+                }`}>
+                  {sent ? successMessage : errorMessage}
                 </div>
               )}
 
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="text-sm font-medium text-slate-700"
-                  >
-                    Your Name*
+                  <label htmlFor="name" className="text-xs font-medium text-slate-700">
+                    Name*
                   </label>
                   <input
                     id="name"
                     name="name"
                     type="text"
-                    placeholder="Enter your full name"
+                    placeholder="Full name"
                     required
-                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-[#3386BC] focus:outline-none focus:ring-2 focus:ring-[#3386BC]/30"
+                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-[#3386BC] focus:outline-none focus:ring-1 focus:ring-[#3386BC]/30"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-slate-700"
-                  >
-                    Your E-Mail*
+                  <label htmlFor="email" className="text-xs font-medium text-slate-700">
+                    Email*
                   </label>
                   <input
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder="Your email"
                     required
-                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-[#3386BC] focus:outline-none focus:ring-2 focus:ring-[#3386BC]/30"
+                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-[#3386BC] focus:outline-none focus:ring-1 focus:ring-[#3386BC]/30"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="website"
-                    className="text-sm font-medium text-slate-700"
-                  >
+                  <label htmlFor="website" className="text-xs font-medium text-slate-700">
                     Website
                   </label>
                   <input
                     id="website"
                     name="website"
                     type="text"
-                    placeholder="Enter your subject"
-                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-[#3386BC] focus:outline-none focus:ring-2 focus:ring-[#3386BC]/30"
+                    placeholder="Your website"
+                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-[#3386BC] focus:outline-none focus:ring-1 focus:ring-[#3386BC]/30"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="phone"
-                    className="text-sm font-medium text-slate-700"
-                  >
-                    Contact No*
+                  <label htmlFor="phone" className="text-xs font-medium text-slate-700">
+                    Phone*
                   </label>
                   <input
                     id="phone"
                     name="phone"
                     type="tel"
-                    placeholder="Enter your phone number"
+                    placeholder="Phone number"
                     inputMode="tel"
                     autoComplete="tel"
                     pattern="^\+?[0-9\s\-()]+$"
                     minLength={10}
                     maxLength={20}
-                    title="Enter a valid phone number using 10-15 digits (you can include +, spaces, dashes, or parentheses)."
                     required
-                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-[#3386BC] focus:outline-none focus:ring-2 focus:ring-[#3386BC]/30"
+                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-[#3386BC] focus:outline-none focus:ring-1 focus:ring-[#3386BC]/30"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label
-                    htmlFor="message"
-                    className="text-sm font-medium text-slate-700"
-                  >
-                    Your Message*
+                  <label htmlFor="message" className="text-xs font-medium text-slate-700">
+                    Message*
                   </label>
                   <textarea
                     id="message"
                     name="message"
-                    rows={5}
-                    placeholder="Enter your message"
+                    rows={3}
+                    placeholder="Your message"
                     required
-                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-[#3386BC] focus:outline-none focus:ring-2 focus:ring-[#3386BC]/30"
+                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-[#3386BC] focus:outline-none focus:ring-1 focus:ring-[#3386BC]/30"
                   ></textarea>
                 </div>
               </div>
 
-              <div className="mt-6 flex items-center gap-3">
+              <div className="mt-4 flex items-center gap-3">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex items-center justify-center rounded-lg bg-[#314977] px-5 py-2.5 font-semibold text-white shadow-sm hover:bg-[#2b3f6a] focus:outline-none focus:ring-2 focus:ring-[#3386BC]/40 disabled:opacity-70"
+                  className="inline-flex items-center justify-center rounded-lg bg-[#314977] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2b3f6a] focus:outline-none focus:ring-2 focus:ring-[#3386BC]/40 disabled:opacity-70"
                 >
                   {loading ? "Sending..." : "Send Message"}
                 </button>
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-sm font-medium text-[#314977] underline underline-offset-4"
+                  className="text-xs font-medium text-[#314977] underline underline-offset-4"
                 >
-                  or email {CONTACT_EMAIL}
+                  or email us
                 </a>
               </div>
             </form>
           </section>
         </div>
 
-        {/* Map (from ContactUs.js) */}
-        {/* <div className="mt-12 overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 bg-white">
+        {/* Map - Compact height */}
+        <div className="mt-6 overflow-hidden rounded-xl shadow-lg ring-1 ring-black/5 bg-white h-48">
           <iframe
-            title="Google Map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.7074960125717!2d-74.0060150845937!3d40.71277577933002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316d21c451%3A0x1a68d6760c4db07f!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1616161616161!5m2!1sen!2sus"
+            title="Google Map - Nerul Office"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.6540736989335!2d73.015271!3d19.035283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3f3e3f3e3f3%3A0x3e3f3e3f3e3f3e3f!2sNerul%2C%20Navi%20Mumbai%2C%20Maharashtra%20400706!5e0!3m2!1sen!2sin!4v1616161616161!5m2!1sen!2sin"
             width="100%"
-            height="420"
+            height="100%"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
-        </div> */}
+        </div>
       </div>
     </div>
   );

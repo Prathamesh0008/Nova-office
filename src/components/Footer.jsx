@@ -19,7 +19,7 @@ function SmartLink({ to, children, ...props }) {
 }
 
 export default function Footer() {
-  const locations = ["Mumbai", "Navi Mumbai", "Delhi", "Bangalore", "Hyderabad"];
+  const locations = [];
 
   return (
     <footer className="text-white">
@@ -55,7 +55,7 @@ export default function Footer() {
                 </p>
                 <p>
                   Borrowings of other people's mediocrities. The what: trends
-                  are — a search for something unique.
+                  are a search for something unique.
                 </p>
               </div>
             </div>
